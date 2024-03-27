@@ -39,7 +39,7 @@
 	import ContactCard from "@/components/ContactCard.vue";
 	import InputSearch from "@/components/InputSearch.vue";
 	import ContactList from "@/components/ContactList.vue";
-	import ContactService from "@/services/contact.service.js";
+	import ContactService from "@/services/contact.service";
 	export default {
 		components: {
 			ContactCard,
@@ -60,9 +60,26 @@
 				this.activeIndex = -1;
 			},
 		},
-		filteredContacts() {
-			if (!this.searchText) return this.contacts;
-			return this.contacts.filter((_contact, index) => this.contactStrings[index].includes(this.searchText));
+		computed: {
+			// Chuyển các đối tượng contact thành chuỗi để tiện cho tìm kiếm.
+			contactStrings() {
+				return this.contacts.map((contact) => {
+					const { name, email, address, phone } = contact;
+					return [name, email, address, phone].join("");
+				});
+			},
+			// Trả về các contact có chứa thông tin cần tìm kiếm.
+			filteredContacts() {
+				if (!this.searchText) return this.contacts;
+				return this.contacts.filter((_contact, index) => this.contactStrings[index].includes(this.searchText));
+			},
+			activeContact() {
+				if (this.activeIndex < 0) return null;
+				return this.filteredContacts[this.activeIndex];
+			},
+			filteredContactsCount() {
+				return this.filteredContacts.length;
+			},
 		},
 		methods: {
 			async retrieveContacts() {
