@@ -5,11 +5,9 @@
 		<p>{{ message }}</p>
 	</div>
 </template>
-
 <script>
 	import ContactForm from "@/components/ContactForm.vue";
 	import ContactService from "@/services/contact.service";
-
 	export default {
 		components: {
 			ContactForm,
@@ -43,7 +41,8 @@
 			async updateContact(data) {
 				try {
 					await ContactService.update(this.contact._id, data);
-					this.message = "Liên hệ được cập nhật thành công.";
+					alert("Cập nhật thành công");
+					this.$router.push({ path: "/" });
 				} catch (error) {
 					console.log(error);
 				}
@@ -61,7 +60,6 @@
 		},
 		created() {
 			this.getContact(this.id);
-
 			this.message = "";
 		},
 	};

@@ -60,8 +60,6 @@
 				phone: yup.string().matches(/((09|03|07|08|05)+([0-9]{8})\b)/g, "Số điện thoại không hợp lệ."),
 			});
 			return {
-				// Chúng ta sẽ không muốn hiệu chỉnh props, nên tạo biến cục bộ
-				// contactLocal để liên kết với các input trên form
 				contactLocal: this.contact,
 				contactFormSchema,
 			};
