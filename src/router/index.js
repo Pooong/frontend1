@@ -13,6 +13,12 @@ const routes = [
 		props: true, // Truyền các biến trong $route.params vào làm props
 	},
 	{
+		path: "/favorite",
+		name: "contact.favorite",
+		component: () => import("@/views/ContactFavorite.vue"),
+		props: true, // Truyền các biến trong $route.params vào làm props
+	},
+	{
 		path: "/add-contact",
 		name: "contact.add",
 		component: () => import("@/views/AddContact.vue"),
